@@ -27,21 +27,21 @@ public class OrgWebTest {
 	private OrgWeb dao;
 	
 	
-	//@Test
+	@Test
 	public void testDownload() {
 		//String r=dao.download("http://smart.tdcc.com.tw/opendata/getOD.ashx?id=1-5");
 		//System.out.println(r);
 	}
 
-	//@Test
+	@Test
 	public void testContent() throws IOException {
-		FileInfo info=dao.findFileInfo("https://data.gov.tw/dataset/11452");
-		log.info(info);
+		//FileInfo info=dao.findFileInfo("https://data.gov.tw/dataset/11452");
+		//log.info(info);
 	}
 	
 	@Test
 	public void testSaveFile() throws Exception{
-		FileInfo info=dao.findFileInfo("https://data.gov.tw/dataset/11452");
-		dao.saveFile(info);
+		//FileInfo info=dao.findFileInfo("https://data.gov.tw/dataset/11452");
+		//dao.saveFile(info);
 	}
 }

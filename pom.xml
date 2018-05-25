@@ -46,6 +46,12 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
+		<!-- http client -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>		
+		</dependency>
+
 		<!-- apache commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -77,12 +83,6 @@
 			<version>3.1.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.openclover</groupId>
-			<artifactId>clover-maven-plugin</artifactId>
-			<version>4.2.1</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -98,22 +98,10 @@
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok-maven-plugin</artifactId>
 				<version>1.16.18.1</version>
-				<executions>
-					<execution>
-						<id>delombok</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>delombok</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>test-delombok</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>testDelombok</goal>
-						</goals>
-					</execution>
-				</executions>
+				<!-- <executions> <execution> <id>delombok</id> <phase>generate-sources</phase> 
+					<goals> <goal>delombok</goal> </goals> </execution> <execution> <id>test-delombok</id> 
+					<phase>generate-test-sources</phase> <goals> <goal>testDelombok</goal> </goals> 
+					</execution> </executions> -->
 			</plugin>
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
@@ -123,10 +111,13 @@
 			<plugin>
 				<groupId>org.openclover</groupId>
 				<artifactId>clover-maven-plugin</artifactId>
+				<version>4.2.1</version>
 				<configuration>
 					<generateHtml>true</generateHtml>
 					<generateXml>true</generateXml>
+					<includesAllSourceRoots>true</includesAllSourceRoots>
 				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>

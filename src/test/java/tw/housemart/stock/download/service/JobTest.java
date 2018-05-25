@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lombok.extern.log4j.Log4j2;
-import tw.housemart.stock.download.domain.OrgWebTest;
+//import tw.housemart.stock.download.domain.OrgWebTest;
 
 @Log4j2
 @RunWith(SpringRunner.class)
@@ -24,8 +24,13 @@ public class JobTest {
 		service.runDay();
 	}
 
-	//@Test
+	@Test
 	public void testRunWeek() {
-		service.runWeek();
+		//service.runWeek();
+	}
+	
+	@Test
+	public void testRunMonth() {
+		//service.runMonth();
 	}
 }
