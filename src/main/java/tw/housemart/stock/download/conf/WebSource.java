@@ -19,8 +19,8 @@ public class WebSource {
 		returnValue.add(TypeLink.builder().type("上櫃公司每日重大訊息").href("https://data.gov.tw/dataset/18418").build());
 		returnValue.add(TypeLink.builder().type("期貨市場三大法人-選擇權買賣權分計-依日期").href("https://data.gov.tw/dataset/11600").build());
 		returnValue.add(TypeLink.builder().type("期貨市場三大法人-區分各選擇權契約-依日期").href("https://data.gov.tw/dataset/11598").build());
-		returnValue.add(TypeLink.builder().type("每日第一上市外國股票成交量值").href("https://data.gov.tw/dataset/11759").build());		
-		returnValue.add(TypeLink.builder().type("期貨市場三大法人-區分各期貨契約-依日期").href("https://data.gov.tw/dataset/11596").build());
+		returnValue.add(TypeLink.builder().type("每日第一上市外國股票成交量值").href("https://data.gov.tw/dataset/11759").build());
+		returnValue.add(TypeLink.builder().type("期貨市場三大法人-區分各期貨契約-依日期").href("https://data.gov.tw/dataset/11596").build());	
 		returnValue.add(TypeLink.builder().type("期貨市場三大法人-區分期貨與選擇權二類-依日期").href("https://data.gov.tw/dataset/11594").build());
 		returnValue.add(TypeLink.builder().type("期貨市場三大法人-總表-依日期").href("https://data.gov.tw/dataset/11592").build());
 		returnValue.add(TypeLink.builder().type("每日市場成交資訊").href("https://data.gov.tw/dataset/11672").build());

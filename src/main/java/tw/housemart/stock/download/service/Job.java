@@ -26,7 +26,7 @@ public class Job {
 	@Qualifier("monthly")
 	private List<TypeLink> month;
 	@Autowired
-	@Qualifier("weekly")
+	@Qualifier("yearly")
 	private List<TypeLink> yearly;
 	@Autowired
 	private OrgWeb dao;

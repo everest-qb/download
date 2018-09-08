@@ -51,6 +51,11 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>		
 		</dependency>
+		<dependency>
+  			<groupId>com.squareup.okhttp3</groupId>
+  			<artifactId>okhttp</artifactId>
+  			<version>3.11.0</version>
+		</dependency>
 
 		<!-- apache commons-io -->
 		<dependency>

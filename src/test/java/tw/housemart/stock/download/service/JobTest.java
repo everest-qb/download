@@ -21,7 +21,7 @@ public class JobTest {
 	
 	@Test
 	public void testRunDay() {
-		service.runDay();
+		//service.runDay();
 	}
 
 	@Test
@@ -32,5 +32,10 @@ public class JobTest {
 	@Test
 	public void testRunMonth() {
 		//service.runMonth();
+	}
+	
+	@Test
+	public void testRunYear() {
+		service.runYear();
 	}
 }

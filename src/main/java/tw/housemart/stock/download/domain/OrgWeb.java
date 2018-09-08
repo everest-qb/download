@@ -7,6 +7,11 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,6 +34,7 @@ import javax.ws.rs.core.MediaType;*/
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Cleanup;
@@ -40,6 +46,11 @@ import tw.housemart.stock.download.domain.obj.TypeLink;
 @Log4j2
 @Component
 public class OrgWeb {
+	
+	@Autowired
+	private WebClient client;
+	@Autowired
+	private Ok3Client client2;
 
 	private SimpleDateFormat f=new SimpleDateFormat("yyyyMMdd");
 	
@@ -65,21 +76,9 @@ public class OrgWeb {
 				try {
 					File file = new File(dir, "f" + count + ".csv");
 					if (!file.exists()) {
-						@Cleanup
-						CloseableHttpClient httpclient = HttpClients.createDefault();						
-						HttpGet httpget = new HttpGet(new URL(tl.getHref()).toURI());							
-						httpget.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-						httpget.addHeader("Host", new URL(tl.getHref()).getHost());
-						httpget.addHeader("Accept-Language", "zh-TW,zh;q=0.9,zh-CN;q=0.8,en-US;q=0.7,en;q=0.6");
-						httpget.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");						
-						httpget.addHeader("Connection", "close");	//disable keep alive
-						HttpResponse response = httpclient.execute(httpget);												
-			            HttpEntity entity = response.getEntity();
-			            if (entity != null) {			               
-			                InputStream inputStream = entity.getContent();
-			                FileUtils.copyInputStreamToFile(inputStream, file); 
-			            }
-						//FileUtils.copyURLToFile(new URL(tl.getHref()), file);
+						
+						client2.downloadFile(new URL(tl.getHref()), file);
+						
 						count++;
 					}
 				} catch (MalformedURLException e) {
@@ -88,6 +87,23 @@ public class OrgWeb {
 					log.error("IOException",e);					
 				} catch (URISyntaxException e) {
 					log.error("URISyntaxException",e);	
+				} catch (KeyManagementException e) {
+					
+					log.error("KeyManagementException",e);	
+				} catch (UnrecoverableKeyException e) {
+					
+					log.error("UnrecoverableKeyException",e);	
+				} catch (NoSuchAlgorithmException e) {
+					
+					log.error("NoSuchAlgorithmException",e);	
+				} catch (KeyStoreException e) {
+					
+					log.error("KeyStoreException",e);	
+				} catch (CertificateException e) {
+					
+					log.error("CertificateException",e);	
+				} catch (Exception e) {
+					log.error("Exception",e);
 				}
 				
 			}
@@ -113,8 +129,12 @@ public class OrgWeb {
 		log.trace(title);
 		
 		Element e=doc.select("div.node-content").first();
-				
+						
+	
 		e.children().forEach(ee->{
+		//log.trace(ee.nodeName());
+		//log.trace("EE childNodeSize:{}",ee.childNodeSize());
+			
 			if(ee.childNodeSize()==2){
 				Element e1=ee.child(0);
 				Element e2=ee.child(1);
@@ -123,8 +143,8 @@ public class OrgWeb {
 					String cycle=e2.text();
 					info.setCycle(cycle);
 					log.trace("更新頻率:"+cycle);				
-				}else if(e1.text().startsWith("資料資源")){
-					log.trace("資料資源:");
+				}else if(e1.text().startsWith("資料下載網址")){
+					log.trace("資料下載網址:");
 					e2.select("a.ff-icon").forEach(a->{
 						String type=a.text();
 						String href=a.attr("href");

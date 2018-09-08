@@ -38,15 +38,16 @@ public class InstallCert {
             return;  
         }  
   
-        File file = new File("jssecacerts");  
+        File file = new File("cacerts");  
         if (file.isFile() == false) {  
-            char SEP = File.separatorChar;  
+           /* char SEP = File.separatorChar;  
             File dir = new File(System.getProperty("java.home") + SEP + "lib"  
                     + SEP + "security");  
             file = new File(dir, "jssecacerts");  
             if (file.isFile() == false) {  
                 file = new File(dir, "cacerts");  
-            }  
+            }  */
+        	System.out.println("cacerts not found");
         }  
         System.out.println("Loading KeyStore " + file + "...");  
         InputStream in = new FileInputStream(file);  
@@ -76,7 +77,7 @@ public class InstallCert {
             System.out.println("No errors, certificate is already trusted");  
         } catch (SSLException e) {  
            // System.out.println();  
-           // e.printStackTrace(System.out);  
+            e.printStackTrace(System.out);  
         }  
   
         X509Certificate[] chain = tm.chain;  
@@ -120,7 +121,7 @@ public class InstallCert {
         String alias = host + "-" + (k + 1);  
         ks.setCertificateEntry(alias, cert);  
   
-        OutputStream out = new FileOutputStream("jssecacerts");  
+        OutputStream out = new FileOutputStream("cacerts");  
         ks.store(out, passphrase);  
         out.close();  
   
@@ -128,7 +129,7 @@ public class InstallCert {
         System.out.println(cert);  
         System.out.println();  
         System.out  
-                .println("Added certificate to keystore 'jssecacerts' using alias '"  
+                .println("Added certificate to keystore 'cacerts' using alias '"  
                         + alias + "'");  
     }  
   
@@ -154,8 +155,9 @@ public class InstallCert {
             this.tm = tm;  
         }  
   
-        public X509Certificate[] getAcceptedIssuers() {  
-            throw new UnsupportedOperationException();  
+        public X509Certificate[] getAcceptedIssuers() { 
+        	return tm.getAcceptedIssuers();
+            //throw new UnsupportedOperationException();  
         }  
   
         public void checkClientTrusted(X509Certificate[] chain, String authType)  

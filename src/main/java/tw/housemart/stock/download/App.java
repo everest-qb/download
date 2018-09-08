@@ -11,7 +11,7 @@ public class App
 {
     public static void main( String[] args )
     {
-    	System.setProperty("javax.net.ssl.trustStore", "jssecacerts"); 
+    	//System.setProperty("javax.net.ssl.trustStore", "jssecacerts"); 
     	ConfigurableApplicationContext context=SpringApplication.run(App.class, args);
     	Job service=context.getBean(Job.class);
     	service.dayRule();
